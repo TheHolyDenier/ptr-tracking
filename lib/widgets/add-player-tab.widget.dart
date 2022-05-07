@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:ptr_tracker/models/player.model.dart';
 import 'package:ptr_tracker/store/game.dart';
 
@@ -13,32 +13,51 @@ class AddPlayerTabWidget extends StatefulWidget {
 }
 
 class _AddPlayerTabWidgetState extends State<AddPlayerTabWidget> {
-  final game = Game();
-  Player? selectedPlayer;
+  late List<Player?> selectedPlayers;
+  final List<TextEditingController> _controllers = [];
+
+  @override
+  void dispose() {
+    for (int i = 0; i < _controllers.length; i++) {
+      _controllers[i].dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => ListTile(
-        leading: selectedPlayer != null
-            ? Icon(selectedPlayer!.icon,
-                color: getPlayerColor(selectedPlayer!.color))
-            : null,
-        title: DropdownButton(
-            value: selectedPlayer,
-            items: [...game.notPlaying]
-                .map<DropdownMenuItem<Player>>((Player value) {
-              return DropdownMenuItem<Player>(
-                  value: value, child: Text(value.name ?? value.color.name));
-            }).toList(),
-            onChanged: (Player? value) {
-              setState(
-                () {
-                  selectedPlayer = value;
-                },
-              );
-            }),
-      ),
-    );
+    final game = Provider.of<Game>(context);
+
+    for (int i = 0; i < game.all.length; i++) {
+      print('al cargar ${game.all[i].name}');
+      _controllers.add(TextEditingController(text: game.all[i].name));
+    }
+
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      for (var i = 0; i < game.all.length; i++)
+        ListTile(
+          leading:
+              Icon(game.all[i].icon, color: getPlayerColor(game.all[i].color)),
+          title: TextFormField(
+            controller: _controllers[i],
+            maxLength: 20,
+            decoration: const InputDecoration(labelText: 'Name'),
+            onChanged: (String value) {
+              setState(() {
+                game.renamePlayer(game.all[i].color, name: value);
+                print('onChanging ${game.all[i].name}');
+              });
+            },
+          ),
+          trailing: Checkbox(
+            onChanged: (_) {
+              setState(() {
+                game.changeStatus(game.all[i].color);
+              });
+            },
+            value: game.all[i].playing,
+          ),
+        ),
+    ]);
   }
 }

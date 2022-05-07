@@ -9,6 +9,26 @@ part of 'game.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$Game on _Game, Store {
+  Computed<List<Player>>? _$playingComputed;
+
+  @override
+  List<Player> get playing => (_$playingComputed ??=
+          Computed<List<Player>>(() => super.playing, name: '_Game.playing'))
+      .value;
+  Computed<List<Player>>? _$notPlayingComputed;
+
+  @override
+  List<Player> get notPlaying =>
+      (_$notPlayingComputed ??= Computed<List<Player>>(() => super.notPlaying,
+              name: '_Game.notPlaying'))
+          .value;
+  Computed<List<Player>>? _$allComputed;
+
+  @override
+  List<Player> get all => (_$allComputed ??=
+          Computed<List<Player>>(() => super.all, name: '_Game.all'))
+      .value;
+
   late final _$playersAtom = Atom(name: '_Game.players', context: context);
 
   @override
@@ -95,9 +115,23 @@ mixin _$Game on _Game, Store {
   }
 
   @override
+  void changeStatus(PlayerColorEnum color) {
+    final _$actionInfo =
+        _$_GameActionController.startAction(name: '_Game.changeStatus');
+    try {
+      return super.changeStatus(color);
+    } finally {
+      _$_GameActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-players: ${players}
+players: ${players},
+playing: ${playing},
+notPlaying: ${notPlaying},
+all: ${all}
     ''';
   }
 }

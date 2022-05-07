@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:ptr_tracker/store/game.dart';
 import 'package:ptr_tracker/widgets/icon.widget.dart';
 import 'package:ptr_tracker/widgets/square.widget.dart';
@@ -11,7 +12,6 @@ import '../utils/consts.utils.dart';
 
 class SheetItemWidget extends StatelessWidget {
   final List<CardEnum> elements;
-  final game = Game();
   final PlayerColorEnum color;
 
   SheetItemWidget(this.elements, {Key? key, required this.color})
@@ -19,7 +19,7 @@ class SheetItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    game.addPlayer(color);
+    final game = Provider.of<Game>(context);
     List<CardEnum>? reversed = [...elements].reversed.toList();
     return Column(children: [
       Row(

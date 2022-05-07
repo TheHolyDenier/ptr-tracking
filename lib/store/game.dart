@@ -18,14 +18,15 @@ abstract class _Game with Store {
   Players players = Players();
 
   @computed
-  List<Player> get playing => all.where((player) => player.playing).toList();
+  List<Player> get playing =>
+      [...all.where((player) => player.playing).toList()];
 
   @computed
   List<Player> get notPlaying =>
-      all.where((player) => !player.playing).toList();
+      [...all.where((player) => !player.playing).toList()];
 
   @computed
-  List<Player> get all => players.get();
+  List<Player> get all => [...players.get()];
 
   @action
   void addPlayer(PlayerColorEnum color, {String? name}) {
@@ -50,11 +51,16 @@ abstract class _Game with Store {
 
   @action
   void renamePlayer(PlayerColorEnum color, {String? name}) {
-    players.find(color).name = name;
+    players.find(color).rename(name: name);
   }
 
   @action
   void resetPlayer(PlayerColorEnum color) {
     players.find(color).marked.clear();
+  }
+
+  @action
+  void changeStatus(PlayerColorEnum color) {
+    players.find(color).switchPlayStatus();
   }
 }

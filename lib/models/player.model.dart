@@ -20,7 +20,7 @@ class Player {
   @observable
   bool playing = false;
 
-  Player(this.color, {this.name});
+  Player(this.color);
 
   @action
   bool existsInList(Pair pair) {
@@ -62,5 +62,10 @@ class Player {
     return marked.indexWhere((storedPair) =>
         (storedPair.a == pair.a && storedPair.b == pair.b) ||
         (storedPair.b == pair.a && storedPair.a == pair.b));
+  }
+
+  @action
+  void rename({String? name}) {
+    this.name = name;
   }
 }
