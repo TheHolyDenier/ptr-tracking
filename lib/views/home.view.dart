@@ -28,16 +28,21 @@ class _HomeViewState extends State<HomeView> {
                   builder: (context) => const AlertDialog(
                     content: AddPlayerTabWidget(),
                   ),
-                );
+                ).then((_) => setState(() {}));
               },
               icon: const Icon(Icons.add),
             )
           ],
         ),
         body: Observer(
-          builder: (context) => ListView.builder(
-            itemCount: game.playing.length,
-            itemBuilder: (_, index) => Text(game.playing[index].color.name),
+          builder: (_) => ListView.builder(
+            itemCount: game.all.length,
+            itemBuilder: (_, index) {
+              print('página anterior ${game.all.length}');
+              return game.all[index].playing
+                  ? Text(game.all[index].color.name)
+                  : Container();
+            },
           ),
         ));
   }

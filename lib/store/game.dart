@@ -18,15 +18,7 @@ abstract class _Game with Store {
   Players players = Players();
 
   @computed
-  List<Player> get playing =>
-      [...all.where((player) => player.playing).toList()];
-
-  @computed
-  List<Player> get notPlaying =>
-      [...all.where((player) => !player.playing).toList()];
-
-  @computed
-  List<Player> get all => [...players.get()];
+  ObservableList<Player> get all => ObservableList.of(players.get());
 
   @action
   void addPlayer(PlayerColorEnum color, {String? name}) {

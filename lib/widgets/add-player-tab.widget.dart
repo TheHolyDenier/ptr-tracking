@@ -29,7 +29,6 @@ class _AddPlayerTabWidgetState extends State<AddPlayerTabWidget> {
     final game = Provider.of<Game>(context);
 
     for (int i = 0; i < game.all.length; i++) {
-      print('al cargar ${game.all[i].name}');
       _controllers.add(TextEditingController(text: game.all[i].name));
     }
 
@@ -45,7 +44,6 @@ class _AddPlayerTabWidgetState extends State<AddPlayerTabWidget> {
             onChanged: (String value) {
               setState(() {
                 game.renamePlayer(game.all[i].color, name: value);
-                print('onChanging ${game.all[i].name}');
               });
             },
           ),
