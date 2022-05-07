@@ -113,6 +113,17 @@ mixin _$Game on _Game, Store {
   }
 
   @override
+  void newGame(PlayerColorEnum color, {bool hard = false}) {
+    final _$actionInfo =
+        _$_GameActionController.startAction(name: '_Game.newGame');
+    try {
+      return super.newGame(color, hard: hard);
+    } finally {
+      _$_GameActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 players: ${players},

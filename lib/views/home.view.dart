@@ -3,7 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:ptr_tracker/store/game.dart';
 
-import '../widgets/add-player-tab.widget.dart';
+import '../widgets/add-player.widget.dart';
+import '../widgets/sheet.widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _HomeViewState extends State<HomeView> {
     final game = Provider.of<Game>(context);
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Paint the Roses track!'),
           actions: [
@@ -26,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
                 showDialog<void>(
                   context: context,
                   builder: (context) => const AlertDialog(
-                    content: AddPlayerTabWidget(),
+                    content: AddPlayerWidget(),
                   ),
                 ).then((_) => setState(() {}));
               },
@@ -38,9 +40,8 @@ class _HomeViewState extends State<HomeView> {
           builder: (_) => ListView.builder(
             itemCount: game.all.length,
             itemBuilder: (_, index) {
-              print('página anterior ${game.all.length}');
               return game.all[index].playing
-                  ? Text(game.all[index].color.name)
+                  ? SheetWidget(game.all[index].color)
                   : Container();
             },
           ),

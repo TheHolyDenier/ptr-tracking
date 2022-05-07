@@ -55,4 +55,9 @@ abstract class _Game with Store {
   void changeStatus(PlayerColorEnum color) {
     players.find(color).switchPlayStatus();
   }
+
+  @action
+  void newGame(PlayerColorEnum color, {bool hard = false}) {
+    players.find(color).newGame(hard);
+  }
 }

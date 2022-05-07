@@ -20,7 +20,16 @@ class Player {
   @observable
   bool playing = false;
 
+  @observable
+  bool hard = false;
+
   Player(this.color);
+
+  @action
+  void newGame(bool hard) {
+    marked.clear();
+    this.hard = hard;
+  }
 
   @action
   bool existsInList(Pair pair) {

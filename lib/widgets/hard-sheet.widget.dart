@@ -4,9 +4,9 @@ import 'package:ptr_tracker/enums/card.enum.dart';
 import 'package:ptr_tracker/enums/player-color.enum.dart';
 import 'package:ptr_tracker/widgets/sheet-item.widget.dart';
 
-class MediumSheetWidget extends StatelessWidget {
+class HardSheetWidget extends StatelessWidget {
   final PlayerColorEnum color;
-  const MediumSheetWidget(this.color, {Key? key}) : super(key: key);
+  const HardSheetWidget(this.color, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +15,12 @@ class MediumSheetWidget extends StatelessWidget {
       CardEnum.yellow,
       CardEnum.purple,
       CardEnum.pink,
-    ];
-    final cards = [
       CardEnum.pikes,
       CardEnum.heart,
       CardEnum.tiles,
       CardEnum.clovers
     ];
 
-    return Column(
-      children: [
-        SheetItemWidget(colors, color: color),
-        SheetItemWidget(cards, color: color),
-      ],
-    );
+    return SheetItemWidget(colors, color: color, hard: true);
   }
 }

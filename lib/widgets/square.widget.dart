@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../utils/consts.utils.dart';
-
 class SquareWidget extends StatelessWidget {
   final bool selected;
-  const SquareWidget(this.selected, {Key? key}) : super(key: key);
+  final double iconSize;
+  const SquareWidget(this.selected, {Key? key, required this.iconSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
