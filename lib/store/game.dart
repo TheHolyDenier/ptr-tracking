@@ -21,6 +21,10 @@ abstract class _Game with Store {
   List<Player> get playing => all.where((player) => player.playing).toList();
 
   @computed
+  List<Player> get notPlaying =>
+      all.where((player) => !player.playing).toList();
+
+  @computed
   List<Player> get all => players.get();
 
   @action
