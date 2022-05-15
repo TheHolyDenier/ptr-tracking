@@ -7,21 +7,23 @@ import 'package:ptr_tracker/widgets/square.widget.dart';
 
 import '../enums/card.enum.dart';
 import '../enums/player-color.enum.dart';
+import '../enums/sheet.enum.dart';
 import '../models/pair.model.dart';
 
 class SheetItemWidget extends StatelessWidget {
   final List<CardEnum> elements;
   final PlayerColorEnum color;
-  final bool hard;
+  final SheetEnum sheet;
 
   const SheetItemWidget(this.elements,
-      {Key? key, required this.color, this.hard = false})
+      {Key? key, required this.color, this.sheet = SheetEnum.medium})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<Game>(context);
-    final iconSize = MediaQuery.of(context).size.width / (hard ? 10 : 6);
+    final iconSize =
+        MediaQuery.of(context).size.width / (sheet == SheetEnum.hard ? 10 : 6);
     List<CardEnum>? reversed = [...elements].reversed.toList();
     return Column(children: [
       Row(

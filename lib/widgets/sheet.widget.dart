@@ -3,8 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import '../enums/player-color.enum.dart';
+import '../enums/sheet.enum.dart';
 import '../store/game.dart';
-import '../utils/functions.utils.dart';
+import 'easy-sheet.widget.dart';
 import 'hard-sheet.widget.dart';
 import 'medium-sheet.widget.dart';
 
@@ -27,18 +28,6 @@ class _SheetWidgetState extends State<SheetWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Icon(player.icon, color: getPlayerColor(player.color)),
-                const SizedBox(width: 10.0),
-                Text(player.name ?? 'Player ${player.color.name}',
-                    style: Theme.of(context).textTheme.headline5),
-              ]),
-            ),
-            if (!player.hard) MediumSheetWidget(widget.color),
-            if (player.hard) HardSheetWidget(widget.color),
-            Padding(
               padding: const EdgeInsets.all(30.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,22 +35,34 @@ class _SheetWidgetState extends State<SheetWidget> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        game.newGame(widget.color);
+                        game.newGame(widget.color, sheet: SheetEnum.easy);
                       });
                     },
-                    child: const Text('MEDIUM SHEET'),
+                    child: const Text('NEW EASY'),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        game.newGame(widget.color, hard: true);
+                        game.newGame(widget.color, sheet: SheetEnum.medium);
                       });
                     },
-                    child: const Text('HARD SHEET'),
+                    child: const Text('NEW MEDIUM'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        game.newGame(widget.color, sheet: SheetEnum.hard);
+                      });
+                    },
+                    child: const Text('NEW HARD'),
                   )
                 ],
               ),
-            )
+            ),
+            if (player.sheet == SheetEnum.easy) EasySheetWidget(widget.color),
+            if (player.sheet == SheetEnum.medium)
+              MediumSheetWidget(widget.color),
+            if (player.sheet == SheetEnum.hard) HardSheetWidget(widget.color),
           ]),
     );
   }

@@ -4,6 +4,7 @@ import 'package:ptr_tracker/models/players.model.dart';
 
 import '../enums/card.enum.dart';
 import '../enums/player-color.enum.dart';
+import '../enums/sheet.enum.dart';
 import '../models/pair.model.dart';
 
 // Include generated file
@@ -57,7 +58,7 @@ abstract class _Game with Store {
   }
 
   @action
-  void newGame(PlayerColorEnum color, {bool hard = false}) {
-    players.find(color).newGame(hard);
+  void newGame(PlayerColorEnum color, {SheetEnum sheet = SheetEnum.medium}) {
+    players.find(color).newGame(sheet);
   }
 }

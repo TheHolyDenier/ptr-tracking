@@ -4,6 +4,8 @@ import 'package:ptr_tracker/enums/card.enum.dart';
 import 'package:ptr_tracker/enums/player-color.enum.dart';
 import 'package:ptr_tracker/models/pair.model.dart';
 
+import '../enums/sheet.enum.dart';
+
 class Player {
   @observable
   PlayerColorEnum color;
@@ -21,14 +23,14 @@ class Player {
   bool playing = false;
 
   @observable
-  bool hard = false;
+  SheetEnum sheet = SheetEnum.medium;
 
   Player(this.color);
 
   @action
-  void newGame(bool hard) {
+  void newGame(SheetEnum sheet) {
     marked.clear();
-    this.hard = hard;
+    this.sheet = sheet;
   }
 
   @action

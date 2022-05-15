@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ptr_tracker/enums/card.enum.dart';
 import 'package:ptr_tracker/enums/player-color.enum.dart';
-import 'package:ptr_tracker/enums/sheet.enum.dart';
 import 'package:ptr_tracker/widgets/sheet-item.widget.dart';
 
-class HardSheetWidget extends StatelessWidget {
+import '../enums/sheet.enum.dart';
+
+class EasySheetWidget extends StatelessWidget {
   final PlayerColorEnum color;
-  const HardSheetWidget(this.color, {Key? key}) : super(key: key);
+  const EasySheetWidget(this.color, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,12 @@ class HardSheetWidget extends StatelessWidget {
       CardEnum.yellow,
       CardEnum.purple,
       CardEnum.pink,
-      CardEnum.pikes,
-      CardEnum.heart,
-      CardEnum.tiles,
-      CardEnum.clovers
     ];
 
-    return SheetItemWidget(colors, color: color, sheet: SheetEnum.hard);
+    return Column(
+      children: [
+        SheetItemWidget(colors, color: color, sheet: SheetEnum.easy),
+      ],
+    );
   }
 }

@@ -113,11 +113,11 @@ mixin _$Game on _Game, Store {
   }
 
   @override
-  void newGame(PlayerColorEnum color, {bool hard = false}) {
+  void newGame(PlayerColorEnum color, {SheetEnum sheet = SheetEnum.medium}) {
     final _$actionInfo =
         _$_GameActionController.startAction(name: '_Game.newGame');
     try {
-      return super.newGame(color, hard: hard);
+      return super.newGame(color, sheet: sheet);
     } finally {
       _$_GameActionController.endAction(_$actionInfo);
     }
