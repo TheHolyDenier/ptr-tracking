@@ -27,13 +27,13 @@ class _SheetWidgetState extends State<SheetWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Icon(player.icon, color: getPlayerColor(player.color)),
                 const SizedBox(width: 10.0),
                 Text(player.name ?? 'Player ${player.color.name}',
-                    style: Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.headline5),
               ]),
             ),
             if (!player.hard) MediumSheetWidget(widget.color),
